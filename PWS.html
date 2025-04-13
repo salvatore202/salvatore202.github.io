@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salvatore Raiola - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-light: #f9f9f9;
+      --bg-dark: #1f2937;
+      --text-light: #ffffff;
+      --text-dark: #1f2937;
+      --accent: #2563eb;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      padding: 2rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: white;
+      border: 2px solid var(--accent);
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      content: "🌓";
+      position: absolute;
+      height: 22px;
+      width: 22px;
+      left: 2px;
+      bottom: 1px;
+      font-size: 14px;
+      line-height: 22px;
+      text-align: center;
+      transition: 0.4s;
+      background-color: transparent;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    nav {
+      background-color: #111827;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1.5rem;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      padding: 2.5rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+      color: var(--text-dark);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 0.8rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: background-color 0.3s, padding-left 0.3s;
+    }
+
+    li:hover {
+      background-color: #e0e7ff;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--bg-dark);
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 0.5rem 0;
+      }
+
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    .dark-mode {
+      background-color: #111827;
+      color: #f9f9f9;
+    }
+
+    .dark-mode h2 {
+      color: white;
+    }
+
+    .dark-mode li:hover {
+      background-color: #1e3a8a;
+      color: white;
+    }
+
+    .dark-mode nav a {
+      color: #f9f9f9;
+    }
+
+    .dark-mode nav a:hover {
+      color: #60a5fa;
+    }
+
+    .dark-mode footer {
+      background-color: #0f172a;
+    }
+
+    .side-decoration {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 50px;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(37,99,235,0.08), rgba(255,255,255,0));
+    }
+
+    .side-left {
+      left: 0;
+      border-right: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .side-right {
+      right: 0;
+      border-left: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .dark-mode .side-decoration {
+      background: linear-gradient(to bottom, rgba(96,165,250,0.08), rgba(0,0,0,0));
+    }
+
+    .dark-mode .side-left {
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .dark-mode .side-right {
+      border-left: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-icons a {
+      color: var(--bg-dark);
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .dark-mode .social-icons a {
+      color: white;
+    }
+
+    .social-icons a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="side-decoration side-left"></div>
+  <div class="side-decoration side-right"></div>
+
+  <header>
+    <div class="toggle-theme">
+      <label class="switch">
+        <input type="checkbox" onclick="toggleTheme()" id="themeToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <img src="C:\Users\Salvatore\Desktop\thumb-1920-420100.jpg" alt="Foto profilo Salvatore Raiola" class="profile-pic">
+    <h1>Salvatore Raiola</h1>
+    <p>Ingegnere Informatico</p>
+  </header>
+
+  <nav>
+    <a href="#about">Chi sono</a>
+    <a href="#skills">Competenze</a>
+    <a href="#projects">Progetti</a>
+    <a href="#form">Formazione</a>
+    <a href="#cert">Certificazioni</a>
+    <a href="#contact">Contatti</a>
+  </nav>
+
+  <main>
+    <section id="about" class="fade-in">
+      <h2>Chi sono</h2>
+      <p>Sono un ingegnere informatico con competenze in Teoria del Controllo e dei Sistemi, Programmazione e Intelligenza Artificiale.
+        
+        Essendo appassionato fin da piccolo alla tecnologia in generale, ho cercato negli anni di sperimentare e dare sfogo alla mia curiosità, dedicandomi spesso a progetti personali sia lato Software che lato Hardware.
+        All'età di 15 anni decisi di assemblare il mio primo PC, decandomi poi a piccoli esperimenti di programmazione con la scheda Arduino, incanalando così la mia passione verso <strong>l'Informatica</strong> e <strong>l'Elettronica</strong>.        
+        
+        Dopo il Diploma, conseguito con la lode, mi iscrissi alla facoltà di Ingegneria Informatica preso l'Università degli studi di Napoli - Federico II dove ho acquisito la maggior parte delle mie competenze tecniche. 
+               
+        Sono una persona <strong>propositiva</strong> e <strong>solare</strong>, <strong>costruttiva</strong> e adatta soprattutto al <strong>lavoro in team</strong>; amo apprendere continuamente, anche in modo autonomo e in contesti e settori differenti grazie alla mia formazione di stampo ingegneristico. Sono, inoltre, <strong>stimolato dalle sfide</strong></p>
+    </section>
+
+    <section id="skills" class="fade-in">
+      <h2>Competenze Tecniche</h2>
+      <ul>
+        <li><strong>Linguaggi:</strong> Python, C/C++, MATLAB</li>
+        <li><strong>Framework:</strong> ROS, ROS2, Simulink</li>
+        <li><strong>Controllo:</strong> PID, Cinematica, RL</li>
+        <li><strong>DevOps:</strong> Git, Docker, Linux</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="fade-in">
+      <h2>Progetti</h2>
+      <ul>
+        <ul>
+          <li>
+            <strong>Tesi:</strong> Controllo della locomozione di robot quadrupedi con tecniche di Reinforcement Learning
+            <p style="margin-top: 0.3rem;">
+              Focus sull'uso di algoritmi di Reinforcement Learning per la locomozione dei robot quadrupedi, 
+              con simulazione in MATLAB/Simulink usando Deep Deterministic Policy Gradient.
+            </p>
+          </li>
+          
+          <li>
+            <strong>GLAM:</strong> Gestione Lezioni Associazione Musicale
+            <p style="margin-top: 0.3rem;">
+              Progetto del corso di Ingegneria del Software: sistema di prenotazione per lezioni musicali, 
+              con backend e test inclusi.
+            </p>
+          </li>
+        
+          <li>
+            <strong>Uninformed-Search-Algorithms-Analysis:</strong>
+            <p style="margin-top: 0.3rem;">
+              Progetto del corso di Elementi di Intelligenza Artificiale: software di analisi e confronto di 
+              algoritmi di ricerca non informata con documentazione, implementazione e test.
+            </p>
+          </li>
+        </ul>
+        
+    </section>
+
+    <section id="form" class="fade-in">
+      <h2>Formazione</h2>
+      <ul>
+        <li><strong>Laurea triennale in Ingegneria Informatica</strong>
+        <p>Università degli studi di Napoli - Federico II</p>
+        <p>
+          Docenti di riferimento: Roberto Natella, Domenico Cotroneo
+        </p>
+        </li>
+
+        <li><strong>Diploma Liceo Scientifico con opzione Scienze Applicate</strong>
+        <p>Liceo Pitagora-B.Croce - Torre Annunziata</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="cert" class="fade-in">
+      <h2>Certificazioni</h2>
+      <ul>
+        <li><strong>- Eipass 7 moduli Standard (Accredia)</strong></li>
+
+        <li><strong>- Cambridge B1 English Certification</strong></li>
+        
+      </ul>
+    </section>
+
+    <section id="contact" class="fade-in">
+      <h2>Contatti</h2>
+      <p>📧 Email: <a href="mailto:salvatoreraiola2002@gmail.com">salvatoreraiola2002@gmail.com</a></p>
+      <div class="social-icons">
+        <a href="https://linkedin.com/in/mariorossi" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/salvatore202" target="_blank"><i class="fab fa-github"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Salvatore Raiola. Tutti i diritti riservati.
+  </footer>
+
+  <script>
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    faders.forEach(fader => observer.observe(fader));
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+
+</body>
+</html>
