@@ -99,6 +99,16 @@
       background-color: #111827;
       padding: 0.5rem;
       text-align: center;
+      z-index: 1000;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .sticky-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
     nav a {
@@ -286,7 +296,7 @@
     <p>Ingegnere Informatico</p>
   </header>
 
-  <nav>
+  <nav id="navbar">
     <a href="#about">Chi sono</a>
     <a href="#skills">Competenze</a>
     <a href="#projects">Progetti</a>
@@ -296,6 +306,7 @@
   </nav>
 
   <main>
+
     <section id="about" class="fade-in">
       <h2>Chi sono</h2>
       <p>Sono un ingegnere informatico con competenze in Teoria del Controllo e dei Sistemi, Programmazione e Intelligenza Artificiale.
@@ -413,6 +424,15 @@
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
     }
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('sticky-nav');
+      } else {
+        navbar.classList.remove('sticky-nav');
+      }
+    });
   </script>
 
 </body>
