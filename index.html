@@ -22,7 +22,7 @@
       padding: 0;
       background-color: var(--bg-light);
       color: var(--text-dark);
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     header {
@@ -46,7 +46,8 @@
     .toggle-theme {
       position: absolute;
       top: 1rem;
-      right: 1rem;
+      left: 1rem;
+      z-index: 10;
     }
 
     .switch {
@@ -68,7 +69,7 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background-color: white;
       border: 2px solid var(--accent);
-      transition: 0.4s;
+      transition: all 0.6s ease;
       border-radius: 34px;
     }
 
@@ -82,8 +83,7 @@
       font-size: 14px;
       line-height: 22px;
       text-align: center;
-      transition: 0.4s;
-      background-color: transparent;
+      transition: transform 0.6s ease;
       border-radius: 50%;
     }
 
@@ -97,35 +97,84 @@
 
     nav {
       background-color: #111827;
-      padding: 0.5rem;
-      text-align: center;
-      z-index: 1000;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .sticky-nav {
-      position: fixed;
+      padding: 0.8rem 1rem;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 1.5rem;
+      margin: 0 1.2rem;
       font-weight: bold;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
+      display: inline-block;
     }
 
     nav a:hover {
       color: var(--accent);
     }
 
+    .menu-icon {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #1f2937;
+      box-shadow: -2px 0 6px rgba(0,0,0,0.2);
+      transform: translateX(100%);
+      transition: transform 0.5s ease;
+      z-index: 1000;
+      padding-top: 4rem;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      transition: opacity 0.5s ease;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
     main {
-      padding: 2.5rem 2rem;
-      max-width: 1200px;
+      padding: 2rem 1.5rem;
+      max-width: 1100px;
       margin: auto;
       position: relative;
       z-index: 1;
@@ -138,6 +187,7 @@
     h2 {
       border-left: 4px solid var(--accent);
       padding-left: 1rem;
+      margin-bottom: 1rem;
       color: var(--text-dark);
     }
 
@@ -150,7 +200,7 @@
       margin-bottom: 0.8rem;
       padding: 0.5rem;
       border-radius: 6px;
-      transition: background-color 0.3s, padding-left 0.3s;
+      transition: background-color 0.4s ease, padding-left 0.4s ease;
     }
 
     li:hover {
@@ -171,7 +221,7 @@
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transition: opacity 1s ease, transform 1s ease;
     }
 
     .fade-in.show {
@@ -181,22 +231,6 @@
 
     a {
       color: var(--accent);
-    }
-
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        margin: 0.5rem 0;
-      }
-
-      .profile-pic {
-        width: 120px;
-        height: 120px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
     }
 
     .dark-mode {
@@ -225,49 +259,18 @@
       background-color: #0f172a;
     }
 
-    .side-decoration {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      width: 50px;
-      z-index: 0;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(37,99,235,0.08), rgba(255,255,255,0));
-    }
-
-    .side-left {
-      left: 0;
-      border-right: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .side-right {
-      right: 0;
-      border-left: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .dark-mode .side-decoration {
-      background: linear-gradient(to bottom, rgba(96,165,250,0.08), rgba(0,0,0,0));
-    }
-
-    .dark-mode .side-left {
-      border-right: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .dark-mode .side-right {
-      border-left: 1px solid rgba(255,255,255,0.05);
-    }
-
     .social-icons {
       display: flex;
       align-items: center;
       gap: 1rem;
       margin-top: 0.5rem;
+      justify-content: center;
     }
 
     .social-icons a {
       color: var(--bg-dark);
       font-size: 1.5rem;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
     }
 
     .dark-mode .social-icons a {
@@ -277,26 +280,37 @@
     .social-icons a:hover {
       color: var(--accent);
     }
+
+    @media (max-width: 768px) {
+      nav a {
+        display: none;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="side-decoration side-left"></div>
-  <div class="side-decoration side-right"></div>
+  <div class="mobile-overlay" id="overlay" onclick="toggleMobileMenu()"></div>
 
-  <header>
-    <div class="toggle-theme">
-      <label class="switch">
-        <input type="checkbox" onclick="toggleTheme()" id="themeToggle">
-        <span class="slider"></span>
-      </label>
-    </div>
-    <img src="assets/thumb-1920-420100.jpg" alt="Foto profilo Salvatore Raiola" class="profile-pic">
-    <h1>Salvatore Raiola</h1>
-    <p>Ingegnere Informatico</p>
-  </header>
-
-  <nav id="navbar">
+  <nav>
+    <i class="fas fa-bars menu-icon" onclick="toggleMobileMenu()"></i>
     <a href="#about">Chi sono</a>
     <a href="#skills">Competenze</a>
     <a href="#projects">Progetti</a>
@@ -305,8 +319,28 @@
     <a href="#contact">Contatti</a>
   </nav>
 
-  <main>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMobileMenu()">Chi sono</a>
+    <a href="#skills" onclick="toggleMobileMenu()">Competenze</a>
+    <a href="#projects" onclick="toggleMobileMenu()">Progetti</a>
+    <a href="#form" onclick="toggleMobileMenu()">Formazione</a>
+    <a href="#cert" onclick="toggleMobileMenu()">Certificazioni</a>
+    <a href="#contact" onclick="toggleMobileMenu()">Contatti</a>
+  </div>
 
+  <header>
+    <div class="toggle-theme">
+      <label class="switch">
+        <input type="checkbox" onclick="toggleTheme()" id="themeToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <img src="thumb-1920-420100.jpg" alt="Foto profilo Salvatore Raiola" class="profile-pic">
+    <h1>Salvatore Raiola</h1>
+    <p>Ingegnere Informatico</p>
+  </header>
+
+  <main>
     <section id="about" class="fade-in">
       <h2>Chi sono</h2>
       <p>Sono un ingegnere informatico con competenze in Teoria del Controllo e dei Sistemi, Programmazione e Intelligenza Artificiale.
@@ -336,104 +370,72 @@
           <li>
             <strong>Tesi:</strong> Controllo della locomozione di robot quadrupedi con tecniche di Reinforcement Learning
             <p style="margin-top: 0.3rem;">
-              Focus sull'uso di algoritmi di Reinforcement Learning per la locomozione dei robot quadrupedi, 
-              con simulazione in MATLAB/Simulink usando Deep Deterministic Policy Gradient.
+              Focus sull'uso di algoritmi di Reinforcement Learning per l'autonomia nella navigazione e il controllo dei movimenti.
             </p>
           </li>
-          
           <li>
-            <strong>GLAM:</strong> Gestione Lezioni Associazione Musicale
-            <p style="margin-top: 0.3rem;">
-              Progetto del corso di Ingegneria del Software: sistema di prenotazione per lezioni musicali, 
-              con backend e test inclusi.
-            </p>
-          </li>
-        
-          <li>
-            <strong>Uninformed-Search-Algorithms-Analysis:</strong>
-            <p style="margin-top: 0.3rem;">
-              Progetto del corso di Elementi di Intelligenza Artificiale: software di analisi e confronto di 
-              algoritmi di ricerca non informata con documentazione, implementazione e test.
-            </p>
+            <strong>Progetto RPA:</strong> Controllo distribuito per automazione tramite Raspberry Pi e MQTT
           </li>
         </ul>
-        
+      </ul>
     </section>
 
     <section id="form" class="fade-in">
       <h2>Formazione</h2>
       <ul>
-        <li><strong>Laurea triennale in Ingegneria Informatica</strong>
-        <p>Università degli studi di Napoli - Federico II</p>
-        <p>
-          Docenti di riferimento: Roberto Natella, Domenico Cotroneo
-        </p>
-        </li>
-
-        <li><strong>Diploma Liceo Scientifico con opzione Scienze Applicate</strong>
-        <p>Liceo Pitagora-B.Croce - Torre Annunziata</p>
-        </li>
+        <li>Laurea triennale in Ingegneria Informatica</li>
+        <li>Laurea magistrale in Ingegneria dell'Automazione e Robotica (in corso)</li>
+        <li>Certificazione EIPASS 7 Moduli User</li>
       </ul>
     </section>
 
     <section id="cert" class="fade-in">
       <h2>Certificazioni</h2>
       <ul>
-        <li><strong>- Eipass 7 moduli Standard (Accredia)</strong></li>
-
-        <li><strong>- Cambridge B1 English Certification</strong></li>
-        
+        <li>Certificazione EIPASS 7 Moduli User</li>
+        <li>Certificazione Cambridge B2</li>
       </ul>
     </section>
 
     <section id="contact" class="fade-in">
       <h2>Contatti</h2>
-      <p>📧 Email: <a href="mailto:salvatoreraiola2002@gmail.com">salvatoreraiola2002@gmail.com</a></p>
+      <p>Puoi contattarmi via email a <a href="mailto:email@esempio.com">email@esempio.com</a></p>
       <div class="social-icons">
-        <a href="https://linkedin.com/in/mariorossi" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/salvatore202" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
       </div>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Salvatore Raiola. Tutti i diritti riservati.
+    <p>© 2025 Salvatore Raiola - Tutti i diritti riservati</p>
   </footer>
 
   <script>
-    document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    faders.forEach(fader => observer.observe(fader));
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+    const fadeElements = document.querySelectorAll('.fade-in');
 
     function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
+      if (themeToggle.checked) {
+        body.classList.add('dark-mode');
+      } else {
+        body.classList.remove('dark-mode');
+      }
     }
 
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        navbar.classList.add('sticky-nav');
-      } else {
-        navbar.classList.remove('sticky-nav');
-      }
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        fadeElements.forEach((el) => el.classList.add('show'));
+      }, 300);
     });
   </script>
-
 </body>
 </html>
